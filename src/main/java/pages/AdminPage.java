@@ -1,12 +1,18 @@
+package pages;
+
+import base.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-public class AdminPage {
+public class AdminPage extends TestBase {
     @FindBy(xpath = "//a[contains(@href, 'viewAdminModule')]")
     WebElement adminLink;
 
     @FindBy(xpath = "//label[text()='Username']/../following-sibling::div/input")
     WebElement adminUsername;
+
+    @FindBy(xpath = "//div[text()='Admin']")
+    WebElement adminUsernameResult;
 
     @FindBy(xpath = "//button[text()=\" Search \"]")
     WebElement adminSearchButton;
@@ -37,5 +43,28 @@ public class AdminPage {
 
     @FindBy(xpath = "//button[text()=\" Cancel \"]")
     WebElement adminCancelButton;
+
+    public AdminPage(){
+        PageFactory.initElements(driver, this);
+    }
+
+    public boolean checkAdminLink(){
+        return adminLink.isDisplayed();
+    }
+    public void clickAdminLink(){
+        adminLink.click();
+    }
+    public void enterSystemUsername(String username){
+        adminUsername.sendKeys(username);
+    }
+    public void clickSearchButton(){
+        adminSearchButton.click();
+    }
+    public void clickCancelButton(){
+        adminCancelButton.click();
+    }
+    public boolean usernameDisplayed(){
+        return adminUsernameResult.isDisplayed();
+    }
 
 }
