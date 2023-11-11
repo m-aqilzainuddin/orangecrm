@@ -1,13 +1,13 @@
 package pages;
 
-import base.TestBase;
+import org.openqa.selenium.WebDriver;
+import utils.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.time.Duration;
-
-public class LoginPage extends TestBase {
+public class LoginPage {
+    WebDriver driver;
     @FindBy(xpath = "//label[text()='Username']/../following-sibling::div//input")
     WebElement loginUsername;
 
@@ -17,11 +17,18 @@ public class LoginPage extends TestBase {
     @FindBy(xpath = "//button[text()[normalize-space() = 'Login']]")
     WebElement loginButton;
 
+    @FindBy(xpath = "//a[text()='Logout']")
+    WebElement logoutButton;
+
+    @FindBy(xpath = "//p[@class='oxd-userdropdown-name']")
+    WebElement userMenuDropdown;
+
     //error message
     @FindBy(xpath = "//p[text() = 'Invalid credentials']")
     WebElement loginErrMsg;
 
-    public LoginPage(){
+    public LoginPage(WebDriver driver){
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -32,6 +39,11 @@ public class LoginPage extends TestBase {
 
     public void clickLoginButton(){
         loginButton.click();
+    }
+
+    public void logout() {
+        userMenuDropdown.click();
+        logoutButton.click();
     }
 
     public boolean errorMsgDisplayed(){
