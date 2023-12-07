@@ -24,8 +24,8 @@ public class LoginTest extends BaseTest {
     public void loginCorrectUserCorrectPass() throws InterruptedException {
         loginPage.enterLoginCreds("Admin","admin123");
         loginPage.clickLoginButton();
-        boolean verifyAdminLink = adminPage.checkAdminLink();
-        assertTrue(verifyAdminLink);
+        boolean verifyLoginSuccess = adminPage.adminLinkDisplayed();
+        assertTrue(verifyLoginSuccess);
     }
 
     @Test
