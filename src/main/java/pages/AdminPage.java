@@ -31,23 +31,6 @@ public class AdminPage {
     @FindBy(xpath = "//button[text()[normalize-space()='Reset']]")
     WebElement adminResetButton;
 
-    @FindBy(xpath = "//button[text()[normalize-space()='Add']]")
-    WebElement adminAddButton;
-
-    @FindBy(xpath = "//label[text()='User Role']/../following-sibling::div//div[@class=\"oxd-select-text-input\"]")
-    WebElement adminUserRole;
-
-    @FindBy(xpath = "//label[text()='Employee Name']/../following-sibling::div//input")
-    WebElement adminEmployeeName;
-
-    @FindBy(xpath = "//label[text()='Status']/../following-sibling::div//div[@class=\"oxd-select-text-input\"]")
-    WebElement adminStatus;
-
-    @FindBy(xpath = "//label[text()='Password']/../following-sibling::div/input")
-    WebElement adminPassword;
-
-    @FindBy(xpath = "//label[text()='Confirm Password']/../following-sibling::div/input")
-    WebElement adminConfirmPassword;
 
     @FindBy(xpath = "//span[text()[normalize-space()='Job']]")
     WebElement adminJobBtn;
@@ -64,11 +47,17 @@ public class AdminPage {
     @FindBy(xpath = "//label[text()='Job Description']/../following-sibling::div/textarea")
     WebElement adminJobDesc;
 
+    @FindBy(xpath = "//span[text()='Show More']")
+    WebElement adminJobDescMore;
+
+    @FindBy(xpath = "//div[text()='Quality Assurance']/../following-sibling::div//span[text()=\"Responsible for monitoring and improve an organization's final products.\"]")
+    WebElement adminJobDescDisplayed;
+
     @FindBy(xpath = "//span[text()[normalize-space()='Required']]")
     WebElement adminJobTitleError;
 
     @FindBy(xpath = "//p[text()[normalize-space()='Successfully Saved']]")
-    WebElement adminJobTitleSuccess;
+    WebElement adminJobTitleAddSuccess;
 
     @FindBy(xpath = "//p[text()[normalize-space()='Successfully Updated']]")
     WebElement adminJobTitleSuccessUpdate;
@@ -79,22 +68,33 @@ public class AdminPage {
     @FindBy(xpath = "//div[text()[normalize-space()='Quality Assurance']]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
     WebElement adminEditJobTitleBtn;
 
+    @FindBy(xpath = "//div[text()[normalize-space()='Quality Assurance']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement adminDltJobTitleBtn;
+
+    @FindBy(xpath = "//div[contains(@class,'orangehrm-dialog-popup')]")
+    WebElement adminDltPopupConfirmation;
+
+    @FindBy(xpath = "//button[text()[normalize-space()='Yes, Delete']]")
+    WebElement adminPopupConfirmDltBtn;
+
+    @FindBy(xpath = "//p[text()[normalize-space()='Successfully Deleted']]")
+    WebElement adminJobTitleSuccessDelete;
+
     @FindBy(xpath = "//button[text()[normalize-space()='Save']]")
     WebElement adminSaveButton;
 
     @FindBy(xpath = "//button[text()[normalize-space()='Cancel']]")
     WebElement adminCancelButton;
 
+    @FindBy(xpath = "//button[text()[normalize-space()='Yes, Delete']]")
+    WebElement jobTitleConfirmDltBtn;
+
+    @FindBy(xpath = "//button[text()[normalize-space()='No, Cancel']]")
+    WebElement jobTitleConfirmCancelBtn;
+
     public AdminPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    public boolean checkAdminLink(){
-        return adminLink.isDisplayed();
-    }
-    public void clickAdminLink(){
-        adminLink.click();
     }
     public void enterSystemUsername(String username){
         adminUsername.click();
@@ -118,19 +118,41 @@ public class AdminPage {
     public void clickJobBtn(){
         adminJobBtn.click();
     }
-    public void clickJobTitleLink(){
-        adminJobTitleLink.click();
+    public boolean verifySuccessAddMsg(){
+        return adminJobTitleAddSuccess.isDisplayed();
     }
-    public void clickJobTitleAddBtn(){
-        adminJobTitleAddBtn.click();
+    public boolean verifySuccessfullyUpdate(){
+        return adminJobTitleSuccessUpdate.isDisplayed();
+    }
+    public boolean verifyDltPopupConfirmation(){
+        return adminDltPopupConfirmation.isDisplayed();
+    }
+    public void clickPopupConfirmDltBtn(){
+        adminPopupConfirmDltBtn.click();
+    }
+    public boolean verifySuccessfullyDeleted(){
+        return adminJobTitleSuccessDelete.isDisplayed();
+    }
+    public boolean adminLinkDisplayed(){
+        return adminLink.isDisplayed();
+    }
+    public void clickAdmin(){
+        boolean isDisplay = adminLink.isDisplayed();
+        if(isDisplay){
+            adminLink.click();
+        }
+    }
+    public void clickJobTitle(){
+        boolean isDisplay = adminLink.isDisplayed();
+        if(isDisplay){
+            adminLink.click();
+        }
+        adminJobBtn.click();
+        adminJobTitleLink.click();
     }
     public void inputJobDescInput(String jobDesc){
         adminJobDesc.click();
         adminJobDesc.sendKeys(jobDesc);
-    }
-    public void inputJobTitle(String jobTitle){
-        adminJobTitle.click();
-        adminJobTitle.sendKeys(jobTitle);
     }
     public void clickSaveBtn(){
         adminSaveButton.click();
@@ -138,23 +160,67 @@ public class AdminPage {
     public boolean errorDisplayed(){
         return adminJobTitleError.isDisplayed();
     }
-    public boolean verifySuccessAddMsg(){
-        return adminJobTitleSuccess.isDisplayed();
+    public void clickEditJobTitleBtn(){
+        adminEditJobTitleBtn.click();
+    }
+    public void clickJobTitleDescMoreBtn(){
+        adminJobDescMore.click();
+    }
+    public boolean checkJobDescDisplayed(){
+        return adminJobDescDisplayed.isDisplayed();
+    }
+    public void clearInputJobTitle() throws InterruptedException{
+        adminJobTitle.click();
+        adminJobTitle.sendKeys(Keys.CONTROL,"A");
+        adminJobTitle.sendKeys(Keys.DELETE);
+    }
+    public void addJobTitle(){
+        adminJobTitleAddBtn.click();
     }
     public boolean verifyJobTitleExistance(){
         int count = adminJobTitleDisplayed.size();
         return count > 0;
     }
-    public void clickEditJobTitleBtn(){
-        adminEditJobTitleBtn.click();
-    }
-    public void clearInputJobTitle() throws InterruptedException {
+    public void inputJobTitle(String jobTitle){
         adminJobTitle.click();
-        adminJobTitle.sendKeys(Keys.CONTROL,"A");
-        adminJobTitle.sendKeys(Keys.DELETE);
+        adminJobTitle.sendKeys(jobTitle);
     }
-
-    public boolean verifySuccessfullyUpdate(){
-        return adminJobTitleSuccessUpdate.isDisplayed();
+    public void editJobDesc(String jobDesc){
+        boolean isExist = adminEditJobTitleBtn.isDisplayed();
+        if(isExist) {
+            adminEditJobTitleBtn.click();
+            adminJobDesc.click();
+            adminJobDesc.sendKeys(jobDesc);
+        }
+    }
+    public void clearEditJobDesc(String jobDesc){
+        boolean isExist = adminEditJobTitleBtn.isDisplayed();
+        if(isExist) {
+            adminEditJobTitleBtn.click();
+            adminJobDesc.click();
+            adminJobDesc.sendKeys(Keys.CONTROL,"A");
+            adminJobDesc.sendKeys(Keys.DELETE);
+            adminJobDesc.sendKeys(jobDesc);
+        }
+    }
+    public void dltJobTitle(){
+        boolean isExist = adminDltJobTitleBtn.isDisplayed();
+        if(isExist) {
+            adminDltJobTitleBtn.click();
+        }
+        boolean isDisplay = adminDltPopupConfirmation.isDisplayed();
+        if(isDisplay){
+            jobTitleConfirmDltBtn.click();
+        }
+    }
+    public void cancelDltJobTitle(){
+        boolean isExist = adminDltJobTitleBtn.isDisplayed();
+        if(isExist) {
+            adminDltJobTitleBtn.click();
+        }
+        boolean isDisplay = adminDltPopupConfirmation.isDisplayed();
+        if(isDisplay){
+            jobTitleConfirmCancelBtn.click();
+        }
     }
 }
