@@ -23,11 +23,10 @@ public class AdminTest extends BaseTest {
     public void tearDown(){
         loginPage.logout();
     }
+
     @Test
     public void searchCorrectSystemUsers(){
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
+        adminPage.clickAdmin();
         adminPage.enterSystemUsername("Admin");
         adminPage.clickSearchButton();
         boolean usernameDisplayed = adminPage.usernameDisplayed();
@@ -35,9 +34,7 @@ public class AdminTest extends BaseTest {
     }
     @Test
     public void searchIncorrectSystemUsers(){
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
+        adminPage.clickAdmin();
         adminPage.enterSystemUsername("Admin1234");
         adminPage.clickSearchButton();
         boolean usernameNotExist = adminPage.usernameNotDisplayed();
@@ -45,24 +42,19 @@ public class AdminTest extends BaseTest {
     }
     @Test
     public void cancelCorrectSystemUsers(){
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
+        adminPage.clickAdmin();
+        adminPage.clickAdmin();
         adminPage.enterSystemUsername("Admin");
         adminPage.clickResetButton();
         boolean usernameDisplayed = adminPage.usernameDisplayed();
         assertTrue(usernameDisplayed);
     }
 
-    //unable to add new job title "form incomplete"
+    //
     @Test
     public void failAddJobTitle(){
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
-        adminPage.clickJobTitleAddBtn();
+        adminPage.clickJobTitle();
+        adminPage.addJobTitle();
         adminPage.inputJobDescInput("Responsible for monitoring and improve an organization's final products.");
         adminPage.clickSaveBtn();
         boolean jobTitleError = adminPage.errorDisplayed();
@@ -70,66 +62,68 @@ public class AdminTest extends BaseTest {
     }
     @Test
     public void successfulAddJobTitle(){
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
-        adminPage.clickJobTitleAddBtn();
+        adminPage.clickJobTitle();
+        adminPage.addJobTitle();
         adminPage.inputJobTitle("Quality Assurance");
         adminPage.clickSaveBtn();
         boolean successfullyAddedMsg = adminPage.verifySuccessAddMsg();
         assertTrue(successfullyAddedMsg);
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
+        adminPage.clickJobTitle();
         boolean verifyJobTitleDisplayed = adminPage.verifyJobTitleExistance();
         assertTrue(verifyJobTitleDisplayed);
     }
     @Test
     public void cancelAddJobTitle(){
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
-        adminPage.clickJobTitleAddBtn();
+        adminPage.clickJobTitle();
+        adminPage.addJobTitle();
         adminPage.inputJobTitle("Quality Assurance");
         adminPage.clickCancelButton();
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
+        adminPage.clickJobTitle();
         boolean verifyJobTitleDisplayed = adminPage.verifyJobTitleExistance();
         assertFalse(verifyJobTitleDisplayed);
     }
     @Test
-    public void failEditJobTitle() throws InterruptedException {
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
-        boolean verifyJobTitleDisplayed = adminPage.verifyJobTitleExistance();
-        assertTrue(verifyJobTitleDisplayed);
-        adminPage.clickEditJobTitleBtn();
-        //adminPage.inputJobDescInput("Responsible for monitoring and improve an organization's final products.");
+    public void failEditJobDesc() throws InterruptedException {
+        adminPage.clickJobTitle();
+        adminPage.editJobDesc("Responsible for monitoring and improve an organization's final products.");
         adminPage.clearInputJobTitle();
         adminPage.clickSaveBtn();
         adminPage.errorDisplayed();
     }
     @Test
-    public void successfulEditJobTitle() throws InterruptedException {
-        boolean displayAdminLink = adminPage.checkAdminLink();
-        assertTrue(displayAdminLink);
-        adminPage.clickAdminLink();
-        adminPage.clickJobBtn();
-        adminPage.clickJobTitleLink();
-        boolean verifyJobTitleDisplayed = adminPage.verifyJobTitleExistance();
-        assertTrue(verifyJobTitleDisplayed);
-        adminPage.clickEditJobTitleBtn();
-        adminPage.inputJobDescInput("Responsible for monitoring and improve an organization's final products.");
+    public void successfulEditJobDesc(){
+        adminPage.clickJobTitle();
+        adminPage.editJobDesc("Responsible for monitoring and improve an organization's final products.");
         adminPage.clickSaveBtn();
         boolean successfullyEditMsg = adminPage.verifySuccessfullyUpdate();
         assertTrue(successfullyEditMsg);
+        adminPage.clickJobTitleDescMoreBtn();
+        boolean verifyJobDescUpdated = adminPage.checkJobDescDisplayed();
+        assertTrue(verifyJobDescUpdated);
     }
-
-
+    @Test
+    public void cancelEditJobTitleDecs(){
+        adminPage.clickJobTitle();
+        adminPage.clearEditJobDesc("Supervise");
+        adminPage.clickCancelButton();
+        adminPage.clickJobTitleDescMoreBtn();
+        boolean verifyJobDescUpdated = adminPage.checkJobDescDisplayed();
+        assertTrue(verifyJobDescUpdated);
+    }
+    @Test
+    public void cancelDeleteJobTitle(){
+        adminPage.clickJobTitle();
+        adminPage.cancelDltJobTitle();
+        adminPage.clickJobTitle();
+        boolean verifyJobTitleExist = adminPage.verifyJobTitleExistance();
+        assertTrue(verifyJobTitleExist);
+    }
+    @Test
+    public void successDeleteJobTitle(){
+        adminPage.clickJobTitle();
+        adminPage.dltJobTitle();
+        adminPage.clickJobTitle();
+        boolean verifyJobTitleExist = adminPage.verifyJobTitleExistance();
+        assertFalse(verifyJobTitleExist);
+    }
 }
