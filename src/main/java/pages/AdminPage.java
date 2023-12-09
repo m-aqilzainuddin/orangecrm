@@ -74,12 +74,6 @@ public class AdminPage {
     @FindBy(xpath = "//div[contains(@class,'orangehrm-dialog-popup')]")
     WebElement adminDltPopupConfirmation;
 
-    @FindBy(xpath = "//button[text()[normalize-space()='Yes, Delete']]")
-    WebElement adminPopupConfirmDltBtn;
-
-    @FindBy(xpath = "//p[text()[normalize-space()='Successfully Deleted']]")
-    WebElement adminJobTitleSuccessDelete;
-
     @FindBy(xpath = "//button[text()[normalize-space()='Save']]")
     WebElement adminSaveButton;
 
@@ -123,15 +117,6 @@ public class AdminPage {
     }
     public boolean verifySuccessfullyUpdate(){
         return adminJobTitleSuccessUpdate.isDisplayed();
-    }
-    public boolean verifyDltPopupConfirmation(){
-        return adminDltPopupConfirmation.isDisplayed();
-    }
-    public void clickPopupConfirmDltBtn(){
-        adminPopupConfirmDltBtn.click();
-    }
-    public boolean verifySuccessfullyDeleted(){
-        return adminJobTitleSuccessDelete.isDisplayed();
     }
     public boolean adminLinkDisplayed(){
         return adminLink.isDisplayed();
@@ -223,4 +208,49 @@ public class AdminPage {
             jobTitleConfirmCancelBtn.click();
         }
     }
+
+    //PAY GRADE
+    @FindBy(xpath = "//a[text()='Pay Grades']")
+    WebElement payGradeLink;
+    @FindBy(xpath = "//button[text()[normalize-space()='Add']]")
+    WebElement payGradeAddBtn;
+    @FindBy(xpath = "//label[text()[normalize-space()='Name']]/../following-sibling::div/input")
+    WebElement payGradeName;
+    @FindBy(xpath = "//button[text()[normalize-space()='Save']]")
+    WebElement payGradeSaveBtn;
+    @FindBy(xpath = "//button[text()[normalize-space()='Cancel']]")
+    WebElement payGradeCancelBtn;
+    @FindBy(xpath = "//div[text()[normalize-space()='Grade 40']]")
+    WebElement payGradeRecordName;
+    @FindBy(xpath = "//div[text()[normalize-space()='Grade 40']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement payGradeDltRecord;
+    @FindBy(xpath = "//div[text()[normalize-space()='Grade 40']]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
+    WebElement payGradeEditRecord;
+    @FindBy(xpath = "//label[text()[normalize-space()='Currency']]/../following-sibling::div//div[contains(@class,'oxd-select-text-input')]")
+    WebElement payGradeCurrency;
+    @FindBy(xpath = "//h6[text()[normalize-space()='Add Currency']]/following::button[text()[normalize-space()='Save']]")
+    WebElement payGradeCurrSaveBtn;
+    @FindBy(xpath = "//h6[text()[normalize-space()='Add Currency']]/following::button[text()[normalize-space()='Cancel']]")
+    WebElement payGradeCurrCancelBtn;
+    @FindBy(xpath = "//div[@role='listbox']/div/span[text()='MYR - Malaysian Ringgit']")
+    WebElement payGradeCurrMYR;
+    @FindBy(xpath = "//label[text()[normalize-space()='Minimum Salary']]/../following-sibling::div/input")
+    WebElement payGradeMinSalary;
+    @FindBy(xpath = "//label[text()[normalize-space()='Maximum Salary']]/../following-sibling::div/input")
+    WebElement payGradeMaxSalary;
+    @FindBy(xpath = "//p[text()='Successfully Saved']")
+    WebElement payGradeCurrSuccessMsg;
+    @FindBy(xpath = "//div[text()[normalize-space()='Malaysian Ringgit']]")
+    WebElement payGradeRecordDisplay;
+    @FindBy(xpath = "//div[text()[normalize-space()='Malaysian Ringgit']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement payGradeRecordDlt;
+    @FindBy(xpath = "//div[text()[normalize-space()='Malaysian Ringgit']]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
+    WebElement payGradeRecordEdit;
+
+
+
+
+    //EMPLOYEE STATUS
+
+    //JOB CATEGORY
 }
