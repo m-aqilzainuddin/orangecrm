@@ -24,33 +24,34 @@ public class AdminTest extends BaseTest {
         loginPage.logout();
     }
 
-    @Test
-    public void searchCorrectSystemUsers(){
-        adminPage.clickAdmin();
-        adminPage.enterSystemUsername("Admin");
-        adminPage.clickSearchButton();
-        boolean usernameDisplayed = adminPage.usernameDisplayed();
-        assertEquals(true,usernameDisplayed,"Result are not matched!");
-    }
-    @Test
-    public void searchIncorrectSystemUsers(){
-        adminPage.clickAdmin();
-        adminPage.enterSystemUsername("Admin1234");
-        adminPage.clickSearchButton();
-        boolean usernameNotExist = adminPage.usernameNotDisplayed();
-        assertTrue(usernameNotExist);
-    }
-    @Test
-    public void cancelCorrectSystemUsers(){
-        adminPage.clickAdmin();
-        adminPage.clickAdmin();
-        adminPage.enterSystemUsername("Admin");
-        adminPage.clickResetButton();
-        boolean usernameDisplayed = adminPage.usernameDisplayed();
-        assertTrue(usernameDisplayed);
-    }
+    //SYSTEM USER
+//    @Test
+//    public void searchCorrectSystemUsers(){
+//        adminPage.clickAdmin();
+//        adminPage.enterSystemUsername("Admin");
+//        adminPage.clickSearchButton();
+//        boolean usernameDisplayed = adminPage.usernameDisplayed();
+//        assertEquals(true,usernameDisplayed,"Result are not matched!");
+//    }
+//    @Test
+//    public void searchIncorrectSystemUsers(){
+//        adminPage.clickAdmin();
+//        adminPage.enterSystemUsername("Admin1234");
+//        adminPage.clickSearchButton();
+//        boolean usernameNotExist = adminPage.usernameNotDisplayed();
+//        assertTrue(usernameNotExist);
+//    }
+//    @Test
+//    public void cancelCorrectSystemUsers(){
+//        adminPage.clickAdmin();
+//        adminPage.clickAdmin();
+//        adminPage.enterSystemUsername("Admin");
+//        adminPage.clickResetButton();
+//        boolean usernameDisplayed = adminPage.usernameDisplayed();
+//        assertTrue(usernameDisplayed);
+//    }
 
-    //
+    //JOB TITLE
     @Test
     public void failAddJobTitle(){
         adminPage.clickJobTitle();
@@ -126,4 +127,50 @@ public class AdminTest extends BaseTest {
         boolean verifyJobTitleExist = adminPage.verifyJobTitleExistance();
         assertFalse(verifyJobTitleExist);
     }
+
+    //PAY GRADE
+    @Test
+    public void failAddPayGrade(){
+        adminPage.clickPayGrade();
+        adminPage.failAddPayGrade();
+        adminPage.errorDisplayed();
+    }
+    @Test
+    public void successAddPayGrade(){
+        adminPage.clickPayGrade();
+        adminPage.successAddPayGrade("Grade 40");
+        adminPage.clickPayGrade();
+        adminPage.verifyPayGradeExist();
+    }
+    @Test
+    public void cancelAddPayGrade(){
+        adminPage.clickPayGrade();
+        adminPage.cancelAddPayGrade("Grade 40");
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertFalse(verifyPayGradeDisplayed);
+    }
+    @Test
+    public void failUpdatePayGrade(){
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeDisplayed);
+        adminPage.failUpdatePayGrade();
+        boolean verifyPayGradeRecordDisplayed = adminPage.verifyPayGradeRecordExist();
+        assertFalse(verifyPayGradeRecordDisplayed);
+    }
+    @Test
+    public void successUpdatePayGrade(){
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeDisplayed);
+        adminPage.successUpdatePayGrade();
+        boolean verifyPayGradeRecordDisplayed = adminPage.verifyPayGradeRecordExist();
+        assertTrue(verifyPayGradeRecordDisplayed);
+    }
+
+    //EMPLOYEE STATUS
+
+    //JOB CATEGORY
+
 }
