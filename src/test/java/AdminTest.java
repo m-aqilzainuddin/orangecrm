@@ -136,13 +136,6 @@ public class AdminTest extends BaseTest {
         adminPage.errorDisplayed();
     }
     @Test
-    public void successAddPayGrade(){
-        adminPage.clickPayGrade();
-        adminPage.successAddPayGrade("Grade 40");
-        adminPage.clickPayGrade();
-        adminPage.verifyPayGradeExist();
-    }
-    @Test
     public void cancelAddPayGrade(){
         adminPage.clickPayGrade();
         adminPage.cancelAddPayGrade("Grade 40");
@@ -151,11 +144,28 @@ public class AdminTest extends BaseTest {
         assertFalse(verifyPayGradeDisplayed);
     }
     @Test
+    public void successAddPayGrade(){
+        adminPage.clickPayGrade();
+        adminPage.successAddPayGrade("Grade 40");
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeDisplayed);
+    }
+    @Test
     public void failUpdatePayGrade(){
         adminPage.clickPayGrade();
         boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
         assertTrue(verifyPayGradeDisplayed);
         adminPage.failUpdatePayGrade();
+        boolean verifyPayGradeRecordDisplayed = adminPage.verifyPayGradeRecordExist();
+        assertFalse(verifyPayGradeRecordDisplayed);
+    }
+    @Test
+    public void cancelUpdatePayGrade(){
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeDisplayed);
+        adminPage.cancelUpdatePayGrade();
         boolean verifyPayGradeRecordDisplayed = adminPage.verifyPayGradeRecordExist();
         assertFalse(verifyPayGradeRecordDisplayed);
     }
@@ -168,6 +178,28 @@ public class AdminTest extends BaseTest {
         boolean verifyPayGradeRecordDisplayed = adminPage.verifyPayGradeRecordExist();
         assertTrue(verifyPayGradeRecordDisplayed);
     }
+    @Test
+    public void cancelDltPayGrade(){
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeDisplayed);
+        adminPage.cancelDltPayGrade();
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeExist = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeExist);
+    }
+    @Test
+    public void successDltPayGrade(){
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
+        assertTrue(verifyPayGradeDisplayed);
+        adminPage.successDltPayGrade();
+        adminPage.clickPayGrade();
+        boolean verifyPayGradeExist = adminPage.verifyPayGradeExist();
+        assertFalse(verifyPayGradeExist);
+    }
+
+
 
     //EMPLOYEE STATUS
 
