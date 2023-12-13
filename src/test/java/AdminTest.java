@@ -272,7 +272,6 @@ public class AdminTest extends BaseTest {
         assertFalse(verifyUpdatedEmpStatusExist);
     }
 
-
     //JOB CATEGORY
 
 }
