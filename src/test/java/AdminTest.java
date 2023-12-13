@@ -140,8 +140,8 @@ public class AdminTest extends BaseTest {
         adminPage.clickPayGrade();
         adminPage.cancelAddPayGrade("Grade 40");
         adminPage.clickPayGrade();
-        boolean verifyPayGradeDisplayed = adminPage.verifyPayGradeExist();
-        assertFalse(verifyPayGradeDisplayed);
+        boolean verifyPayGradeExist = adminPage.verifyPayGradeExist();
+        assertFalse(verifyPayGradeExist);
     }
     @Test
     public void successAddPayGrade(){
@@ -199,9 +199,79 @@ public class AdminTest extends BaseTest {
         assertFalse(verifyPayGradeExist);
     }
 
-
-
     //EMPLOYEE STATUS
+    @Test
+    public void cancelAddEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        adminPage.cancelAddEmpStatus("Full-Time Employee");
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusExist = adminPage.verifyEmploymentStatusExist();
+        assertFalse(verifyEmploymentStatusExist);
+    }
+    @Test
+    public void failAddEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        adminPage.failAddEmpStatus();
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusExist = adminPage.verifyEmploymentStatusExist();
+        assertFalse(verifyEmploymentStatusExist);
+    }
+    @Test
+    public void successAddEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        adminPage.successAddEmpStatus("Full-Time Employee");
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusExist = adminPage.verifyEmploymentStatusExist();
+        assertTrue(verifyEmploymentStatusExist);
+    }
+    @Test
+    public void cancelUpdateEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusDisplayed = adminPage.verifyEmploymentStatusExist();
+        assertTrue(verifyEmploymentStatusDisplayed);
+        adminPage.cancelUpdateEmpStatus("Full-Time Emp");
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusExist = adminPage.verifyEmploymentStatusExist();
+        assertTrue(verifyEmploymentStatusExist);
+    }
+    @Test
+    public void failUpdateEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusDisplayed = adminPage.verifyEmploymentStatusExist();
+        assertTrue(verifyEmploymentStatusDisplayed);
+        adminPage.failUpdateEmpStatus();
+    }
+    @Test
+    public void successUpdateEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        boolean verifyEmploymentStatusDisplayed = adminPage.verifyEmploymentStatusExist();
+        assertTrue(verifyEmploymentStatusDisplayed);
+        adminPage.successUpdateEmpStatus("Full-Time Emp");
+        adminPage.clickEmploymentStatus();
+        boolean verifyUpdatedEmpStatusExist = adminPage.verifyUpdatedEmpStatusExist();
+        assertTrue(verifyUpdatedEmpStatusExist);
+    }
+    @Test
+    public void cancelDltEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        boolean verifyUpdatedEmpStatusDisplayed = adminPage.verifyUpdatedEmpStatusExist();
+        assertTrue(verifyUpdatedEmpStatusDisplayed);
+        adminPage.cancelDltEmpStatus();
+        adminPage.clickEmploymentStatus();
+        boolean verifyUpdatedEmpStatusExist = adminPage.verifyUpdatedEmpStatusExist();
+        assertTrue(verifyUpdatedEmpStatusExist);
+    }
+    @Test
+    public void successDltEmpStatus(){
+        adminPage.clickEmploymentStatus();
+        boolean verifyUpdatedEmpStatusDisplayed = adminPage.verifyUpdatedEmpStatusExist();
+        assertTrue(verifyUpdatedEmpStatusDisplayed);
+        adminPage.successDltEmpStatus();
+        adminPage.clickEmploymentStatus();
+        boolean verifyUpdatedEmpStatusExist = adminPage.verifyUpdatedEmpStatusExist();
+        assertFalse(verifyUpdatedEmpStatusExist);
+    }
+
 
     //JOB CATEGORY
 
