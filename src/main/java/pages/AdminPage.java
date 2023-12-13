@@ -45,9 +45,6 @@ public class AdminPage {
     public boolean adminLinkDisplayed(){
         return adminLink.isDisplayed();
     }
-    public void clickCancelButton(){
-        globalCancelButton.click();
-    }
     public boolean verifySuccessAddMsg(){
         return globalSuccessfullySaveMsg.isDisplayed();
     }
@@ -56,6 +53,9 @@ public class AdminPage {
     }
     public void clickSaveBtn(){
         globalSaveButton.click();
+    }
+    public void clickCancelButton(){
+        globalCancelButton.click();
     }
     public boolean errorDisplayed(){
         return globalInputRequired.isDisplayed();
@@ -193,8 +193,6 @@ public class AdminPage {
     //PAY GRADE
     @FindBy(xpath = "//a[text()='Pay Grades']")
     WebElement payGradeLink;
-    @FindBy(xpath = "//button[text()[normalize-space()='Add']]")
-    WebElement payGradeAddBtn;
     @FindBy(xpath = "//label[text()[normalize-space()='Name']]/../following-sibling::div/input")
     WebElement payGradeName;
     @FindBy(xpath = "//div[text()[normalize-space()='Grade 40']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
@@ -228,18 +226,18 @@ public class AdminPage {
         }
     }
     public void failAddPayGrade(){
-        payGradeAddBtn.click();
+        globalAddBtn.click();
         payGradeName.click();
         globalSaveButton.click();
     }
     public void successAddPayGrade(String pGradeName){
-        payGradeAddBtn.click();
+        globalAddBtn.click();
         payGradeName.click();
         payGradeName.sendKeys(pGradeName);
         globalSaveButton.click();
     }
     public void cancelAddPayGrade(String pGradeName){
-        payGradeAddBtn.click();
+        globalAddBtn.click();
         payGradeName.click();
         payGradeName.sendKeys(pGradeName);
         globalCancelButton.click();
@@ -292,8 +290,89 @@ public class AdminPage {
     }
 
     //EMPLOYEE STATUS
+    @FindBy(xpath = "//a[text()[normalize-space()='Employment Status']]")
+    WebElement employmentLink;
+    @FindBy(xpath = "//label[text()[normalize-space()='Name']]/following::input")
+    WebElement employmentStatusName;
+    @FindBy(xpath = "//div[text()[normalize-space()='Full-Time Employee']]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
+    WebElement employmentEditStatus;
+    @FindBy(xpath = "//div[text()[normalize-space()='Full-Time Emp']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement employmentDltStatus;
+    @FindBy(xpath = "//div[text()[normalize-space()='Full-Time Employee']]")
+    List<WebElement> employmentStatusDisplayed;
+    @FindBy(xpath = "//div[text()[normalize-space()='Full-Time Emp']]")
+    List<WebElement> employmentStatusUpdated;
+
+
 
     //EMPLOYEE STATUS METHODS
+    public void clickEmploymentStatus(){
+        boolean isExist = adminLink.isDisplayed();
+        if(isExist) {
+            adminLink.click();
+            jobLink.click();
+            employmentLink.click();
+        }
+    }
+    public void cancelAddEmpStatus(String EmpStatus){
+        globalAddBtn.click();
+        employmentStatusName.sendKeys(EmpStatus);
+        globalCancelButton.click();
+    }
+    public void failAddEmpStatus(){
+        globalAddBtn.click();
+        globalSaveButton.click();
+        globalInputRequired.isDisplayed();
+    }
+    public void successAddEmpStatus(String EmpStatus){
+        globalAddBtn.click();
+        employmentStatusName.sendKeys(EmpStatus);
+        globalSaveButton.click();
+        globalSuccessfullySaveMsg.isDisplayed();
+    }
+    public void cancelUpdateEmpStatus(String EmpStatus){
+        employmentEditStatus.click();
+        employmentStatusName.click();
+        employmentStatusName.sendKeys(Keys.CONTROL,"A");
+        employmentStatusName.sendKeys(Keys.DELETE);
+        employmentStatusName.sendKeys(EmpStatus);
+        globalCancelButton.click();
+    }
+    public void failUpdateEmpStatus(){
+        employmentEditStatus.click();
+        employmentStatusName.click();
+        employmentStatusName.sendKeys(Keys.CONTROL,"A");
+        employmentStatusName.sendKeys(Keys.DELETE);
+        globalSaveButton.click();
+        globalInputRequired.isDisplayed();
+    }
+    public void successUpdateEmpStatus(String EmpStatus){
+        employmentEditStatus.click();
+        employmentStatusName.click();
+        employmentStatusName.sendKeys(Keys.CONTROL,"A");
+        employmentStatusName.sendKeys(Keys.DELETE);
+        employmentStatusName.sendKeys(EmpStatus);
+        globalSaveButton.click();
+    }
+    public void cancelDltEmpStatus(){
+        employmentDltStatus.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmCancelBtn.click();
+    }
+    public void successDltEmpStatus(){
+        employmentDltStatus.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmDltBtn.click();
+        globalSuccessfullyDltMsg.isDisplayed();
+    }
+    public boolean verifyEmploymentStatusExist(){
+        int count = employmentStatusDisplayed.size();
+        return count > 0;
+    }
+    public boolean verifyUpdatedEmpStatusExist(){
+        int count = employmentStatusUpdated.size();
+        return count > 0;
+    }
 
 
     //JOB CATEGORY
