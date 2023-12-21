@@ -324,18 +324,18 @@ public class AdminPage {
         globalSaveButton.click();
         globalInputRequired.isDisplayed();
     }
-    public void successAddEmpStatus(String EmpStatus){
+    public void successAddEmpStatus(String empStatus){
         globalAddBtn.click();
-        employmentStatusName.sendKeys(EmpStatus);
+        employmentStatusName.sendKeys(empStatus);
         globalSaveButton.click();
         globalSuccessfullySaveMsg.isDisplayed();
     }
-    public void cancelUpdateEmpStatus(String EmpStatus){
+    public void cancelUpdateEmpStatus(String empStatus){
         employmentEditStatus.click();
         employmentStatusName.click();
         employmentStatusName.sendKeys(Keys.CONTROL,"A");
         employmentStatusName.sendKeys(Keys.DELETE);
-        employmentStatusName.sendKeys(EmpStatus);
+        employmentStatusName.sendKeys(empStatus);
         globalCancelButton.click();
     }
     public void failUpdateEmpStatus(){
@@ -346,12 +346,12 @@ public class AdminPage {
         globalSaveButton.click();
         globalInputRequired.isDisplayed();
     }
-    public void successUpdateEmpStatus(String EmpStatus){
+    public void successUpdateEmpStatus(String empStatus){
         employmentEditStatus.click();
         employmentStatusName.click();
         employmentStatusName.sendKeys(Keys.CONTROL,"A");
         employmentStatusName.sendKeys(Keys.DELETE);
-        employmentStatusName.sendKeys(EmpStatus);
+        employmentStatusName.sendKeys(empStatus);
         globalSaveButton.click();
     }
     public void cancelDltEmpStatus(){
@@ -376,6 +376,86 @@ public class AdminPage {
 
 
     //JOB CATEGORY
+    @FindBy(xpath = "//a[text()[normalize-space()='Job Categories']]")
+    WebElement jobCategoriesLink;
+    @FindBy(xpath = "//label[text()[normalize-space()='Name']]/following::input")
+    WebElement jobCategoriesName;
+    @FindBy(xpath = "//div[text()[normalize-space()='Programmer']]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
+    WebElement editJobCategories;
+    @FindBy(xpath = "//div[text()[normalize-space()='Senior Programmer']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement dltJobCategories;
+    @FindBy(xpath = "//div[text()[normalize-space()='Programmer']]")
+    List<WebElement> jobCategoriesDisplayed;
+    @FindBy(xpath = "//div[text()[normalize-space()='Senior Programmer']]")
+    List<WebElement> jobCategoriesUpdated;
 
     //JOB CATEGORY METHODS
+    public void clickJobCategoriesLink(){
+        boolean isExist = adminLink.isDisplayed();
+        if(isExist) {
+            adminLink.click();
+            jobLink.click();
+            jobCategoriesLink.click();
+        }
+    }
+    public void cancelAddJobCategories(String jobCategory){
+        globalAddBtn.click();
+        jobCategoriesName.sendKeys(jobCategory);
+        globalCancelButton.click();
+    }
+    public void failAddJobCategories(){
+        globalAddBtn.click();
+        globalSaveButton.click();
+        globalInputRequired.isDisplayed();
+    }
+    public void successAddJobCategories(String jobCategories){
+        globalAddBtn.click();
+        jobCategoriesName.sendKeys(jobCategories);
+        globalSaveButton.click();
+        globalSuccessfullySaveMsg.isDisplayed();
+    }
+    public void cancelUpdateJobCategories(String jobCategories){
+        editJobCategories.click();
+        jobCategoriesName.click();
+        jobCategoriesName.sendKeys(Keys.CONTROL,"A");
+        jobCategoriesName.sendKeys(Keys.DELETE);
+        jobCategoriesName.sendKeys(jobCategories);
+        globalCancelButton.click();
+    }
+    public void failUpdateJobCategories(){
+        editJobCategories.click();
+        jobCategoriesName.click();
+        jobCategoriesName.sendKeys(Keys.CONTROL,"A");
+        jobCategoriesName.sendKeys(Keys.DELETE);
+        globalSaveButton.click();
+        globalInputRequired.isDisplayed();
+    }
+    public void successUpdateJobCategories(String jobCategories){
+        editJobCategories.click();
+        jobCategoriesName.click();
+        jobCategoriesName.sendKeys(Keys.CONTROL,"A");
+        jobCategoriesName.sendKeys(Keys.DELETE);
+        jobCategoriesName.sendKeys(jobCategories);
+        globalSaveButton.click();
+        globalSuccessfullyUpdateMsg.isDisplayed();
+    }
+    public void cancelDltJobCategories(){
+        dltJobCategories.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmCancelBtn.click();
+    }
+    public void successDltJobCategories(){
+        dltJobCategories.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmDltBtn.click();
+        globalSuccessfullyDltMsg.isDisplayed();
+    }
+    public boolean verifyJobCategoriesExist(){
+        int count = jobCategoriesDisplayed.size();
+        return count > 0;
+    }
+    public boolean verifyUpdatedJobCategoriesExist(){
+        int count = jobCategoriesUpdated.size();
+        return count > 0;
+    }
 }
