@@ -273,5 +273,74 @@ public class AdminTest extends BaseTest {
     }
 
     //JOB CATEGORY
-
+    @Test
+    public void cancelAddJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        adminPage.cancelAddJobCategories("Programmer");
+        adminPage.clickJobCategoriesLink();
+        boolean verifyJobCategoriesExist = adminPage.verifyJobCategoriesExist();
+        assertFalse(verifyJobCategoriesExist);
+    }
+    @Test
+    public void failAddJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        adminPage.failAddJobCategories();
+        adminPage.clickJobCategoriesLink();
+        boolean verifyJobCategoriesExist = adminPage.verifyJobCategoriesExist();
+        assertFalse(verifyJobCategoriesExist);
+    }
+    @Test
+    public void successAddJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        adminPage.successAddJobCategories("Programmer");
+        adminPage.clickJobCategoriesLink();
+        boolean verifyJobCategoriesExist = adminPage.verifyJobCategoriesExist();
+        assertTrue(verifyJobCategoriesExist);
+    }
+    @Test
+    public void cancelUpdateJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        boolean verifyJobCategoriesDisplayed = adminPage.verifyJobCategoriesExist();
+        assertTrue(verifyJobCategoriesDisplayed);
+        adminPage.cancelUpdateJobCategories("Senior Programmer");
+        adminPage.clickJobCategoriesLink();
+        boolean verifyUpdateJobCategoriesExist = adminPage.verifyUpdatedJobCategoriesExist();
+        assertFalse(verifyUpdateJobCategoriesExist);
+    }
+    @Test
+    public void failUpdateJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        boolean verifyJobCategoriesDisplayed = adminPage.verifyJobCategoriesExist();
+        assertTrue(verifyJobCategoriesDisplayed);
+        adminPage.failUpdateJobCategories();
+    }
+    @Test
+    public void successUpdateJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        boolean verifyJobCategoriesDisplayed = adminPage.verifyJobCategoriesExist();
+        assertTrue(verifyJobCategoriesDisplayed);
+        adminPage.successUpdateJobCategories("Senior Programmer");
+        adminPage.clickJobCategoriesLink();
+        boolean verifyUpdatedJobCategoriesExist = adminPage.verifyUpdatedJobCategoriesExist();
+        assertTrue(verifyUpdatedJobCategoriesExist);
+    }
+    @Test
+    public void cancelDltJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        boolean verifyUpdatedJobCategoriesDisplayed = adminPage.verifyUpdatedJobCategoriesExist();
+        assertTrue(verifyUpdatedJobCategoriesDisplayed);
+        adminPage.cancelDltJobCategories();
+        boolean verifyUpdatedJobCategoriesExist = adminPage.verifyUpdatedJobCategoriesExist();
+        assertTrue(verifyUpdatedJobCategoriesExist);
+    }
+    @Test
+    public void successDltJobCategories(){
+        adminPage.clickJobCategoriesLink();
+        boolean verifyUpdatedJobCategoriesDisplayed = adminPage.verifyUpdatedJobCategoriesExist();
+        assertTrue(verifyUpdatedJobCategoriesDisplayed);
+        adminPage.successDltJobCategories();
+        adminPage.clickJobCategoriesLink();
+        boolean verifyUpdatedJobCategoriesExist = adminPage.verifyUpdatedJobCategoriesExist();
+        assertFalse(verifyUpdatedJobCategoriesExist);
+    }
 }
