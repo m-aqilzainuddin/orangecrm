@@ -321,6 +321,23 @@ public class PIMPage {
         globalSaveButton.click();
         globalSuccessfullyUpdateMsg.isDisplayed();
     }
+    public void cancelDeleteEmployee(String fullname){
+        empSearchByName.click();
+        empSearchByName.sendKeys(fullname);
+        globalSearchBtn.click();
+        empDelete.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmCancelBtn.click();
+    }
+    public void successDeleteEmployee(String fullname){
+        empSearchByName.click();
+        empSearchByName.sendKeys(fullname);
+        globalSearchBtn.click();
+        empDelete.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmDltBtn.click();
+        globalSuccessfullyDltMsg.isDisplayed();
+    }
     public boolean verifyEmployeeExist() {
         int count = empDisplayFName.size()&empDisplayLName.size(); //if both condition met then it true. count = 1.
         return count > 0;
@@ -332,6 +349,175 @@ public class PIMPage {
 
 
     //REPORT
+    @FindBy(xpath = "//a[text()='Reports']")
+    WebElement reportLink;
+    @FindBy(xpath = "//label[text()='Report Name']/../following-sibling::div/input")
+    WebElement reportName;
+    @FindBy(xpath = "//label[text()='Include']/../following-sibling::div")
+    WebElement reportInclude;
+    @FindBy(xpath = "//label[text()='Include']/../following-sibling::div//span[contains(text(), 'Current Employees Only')]")
+    WebElement reportSelectInclude;
+    @FindBy(xpath = "//label[text()='Select Display Field Group']/../following-sibling::div")
+    WebElement reportFirstSelection;
+    @FindBy(xpath = "//label[text()='Select Display Field Group']/../following-sibling::div//span[contains(text(), 'Personal')]")
+    WebElement reportSelectPersonalDisplay;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div")
+    WebElement reportSecondSelection;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div//span[contains(text(),'Employee First Name')]")
+    WebElement reportSelectEmployeeFirstName;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div//span[contains(text(),'Employee Last Name')]")
+    WebElement reportSelectEmployeeLastName;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div//span[contains(text(),'Employee Id')]")
+    WebElement reportSelectEmployeeID;
+    @FindBy(xpath = "//label[text()='Select Display Field Group']/../following-sibling::div//span[contains(text(), 'Job')]")
+    WebElement reportSelectJobDisplay;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div//span[contains(text(),'Job Title')]")
+    WebElement reportSelectJobTitle;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div//span[contains(text(),'Sub Unit')]")
+    WebElement reportSelectSubUnit;
+    @FindBy(xpath = "//label[text()='Select Display Field']/../following-sibling::div//span[contains(text(),'Location')]")
+    WebElement reportSelectLocation;
+    @FindBy(xpath = "//h6[text()='Selection Criteria']/../following-sibling::div//button[contains(@class,'orangehrm-report-icon')]")
+    WebElement reportSecondSelectionAddBtn;
 
+    //REPORT-UPDATE
+    @FindBy(xpath = "//div[contains(text(),'EmployeeDetails')]")
+    List<WebElement> reportDisplayName;
+    @FindBy(xpath = "//div[contains(text(),'Current Employee Details')]")
+    List<WebElement> reportUpdatedDisplayName;
+    @FindBy(xpath = "//div[contains(text(),'Employee Contact info report')]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
+    WebElement reportEditBtn;
+    @FindBy(xpath = "//span[contains(text(),'Employee Id')]/i[contains(@class,'--clear')]")
+    WebElement reportClearEmpID;
+
+    //REPORT-DELETE
+    @FindBy(xpath = "//div[contains(text(),'Current Employee Details')]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement reportDltBtn;
+
+    //REPORT METHOD
+    public void clickReportLink(){
+        boolean isDisplay = pimLink.isDisplayed();
+        if(isDisplay){
+            pimLink.click();
+            reportLink.click();
+        }
+    }
+    public void cancelAddReport(String reportname){
+        reportLink.click();
+        globalAddBtn.click();
+        reportName.click();
+        reportName.sendKeys(reportname);
+        reportInclude.click();
+        reportSelectInclude.click();
+        //firstname
+        reportFirstSelection.click();
+        reportSelectPersonalDisplay.click();
+        reportSecondSelection.click();
+        reportSelectEmployeeFirstName.click();
+        reportSecondSelectionAddBtn.click();
+        //lastname
+        reportSecondSelection.click();
+        reportSelectEmployeeLastName.click();
+        reportSecondSelectionAddBtn.click();
+        //click-cancel-btn
+        globalCancelButton.click();
+    }
+    public void failAddReport(){
+        reportLink.click();
+        globalAddBtn.click();
+        //current-employees-only
+        reportInclude.click();
+        reportSelectInclude.click();
+        //firstname
+        reportFirstSelection.click();
+        reportSelectPersonalDisplay.click();
+        reportSecondSelection.click();
+        reportSelectEmployeeFirstName.click();
+        reportSecondSelectionAddBtn.click();
+        //lastname
+        reportSecondSelection.click();
+        reportSelectEmployeeLastName.click();
+        reportSecondSelectionAddBtn.click();
+        //click-save-btn
+        globalSaveButton.click();
+        globalInputRequired.isDisplayed();
+    }
+    public void successAddReport(String reportname){
+        reportLink.click();
+        globalAddBtn.click();
+        reportName.click();
+        reportName.sendKeys(reportname);
+        reportInclude.click();
+        reportSelectInclude.click();
+        //firstname
+        reportFirstSelection.click();
+        reportSelectPersonalDisplay.click();
+        reportSecondSelection.click();
+        reportSelectEmployeeFirstName.click();
+        reportSecondSelectionAddBtn.click();
+        //lastname
+        reportSecondSelection.click();
+        reportSelectEmployeeLastName.click();
+        reportSecondSelectionAddBtn.click();
+        //employee-id
+        reportSecondSelection.click();
+        reportSelectEmployeeID.click();
+        reportSecondSelectionAddBtn.click();
+        //job-title
+        reportFirstSelection.click();
+        reportSelectJobDisplay.click();
+        reportSecondSelection.click();
+        reportSelectJobTitle.click();
+        reportSecondSelectionAddBtn.click();
+        //job(sub-unit)
+        reportSecondSelection.click();
+        reportSelectSubUnit.click();
+        reportSecondSelectionAddBtn.click();
+        //job(location)
+        reportSecondSelection.click();
+        reportSelectLocation.click();
+        reportSecondSelectionAddBtn.click();
+        //click-save-btn
+        globalSaveButton.click();
+        globalSuccessfullySaveMsg.isDisplayed();
+    }
+    public void cancelUpdateReport(String reportname){
+        reportEditBtn.click();
+        reportName.click();
+        reportName.sendKeys(Keys.CONTROL,"A");
+        reportName.sendKeys(Keys.DELETE);
+        reportName.sendKeys(reportname);
+        reportClearEmpID.click();
+        globalCancelButton.click();
+    }
+    public void successUpdateReport(String reportname){
+        reportEditBtn.click();
+        reportName.click();
+        reportName.sendKeys(Keys.CONTROL,"A");
+        reportName.sendKeys(Keys.DELETE);
+        reportName.sendKeys(reportname);
+        reportClearEmpID.click();
+        globalSaveButton.click();
+        globalSuccessfullyUpdateMsg.isDisplayed();
+    }
+    public void cancelDeleteReport(){
+        reportDltBtn.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmCancelBtn.click();
+    }
+    public void successDeleteReport(){
+        reportDltBtn.click();
+        globalPopupConfirmation.isDisplayed();
+        globalConfirmDltBtn.click();
+        globalSuccessfullyDltMsg.isDisplayed();
+    }
+    public boolean verifyReportExist() {
+        int count = reportDisplayName.size();
+        return count > 0;
+    }
+    public boolean verifyUpdatedReportExist() {
+        int count = reportUpdatedDisplayName.size();
+        return count > 0;
+    }
 
 }
