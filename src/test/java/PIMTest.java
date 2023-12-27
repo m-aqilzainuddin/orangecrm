@@ -62,6 +62,30 @@ public class PIMTest extends BaseTest{
         boolean verifyEmpExist = pimPage.verifyEmployeeExist();
         assertTrue(verifyEmpExist);
     }
+    @Test
+    public void cancelUpdateEmployeeDetails(){
+        pimPage.clickPIMLink();
+        pimPage.cancelUpdateEmployeeDetails("Hanafi Hafi","Hussein");
+        pimPage.clickPIMLink();
+        boolean verifyUpdatedEmpExist = pimPage.verifyUpdatedEmployeeDetailsExist();
+        assertFalse(verifyUpdatedEmpExist);
+    }
+    @Test
+    public void successUpdateEmployeeDetails(){
+        pimPage.clickPIMLink();
+        pimPage.successUpdateEmployeeDetails("Hanafi Hafi","Hussein","Jalan Bulan","Kuala Lumpur","Selangor","50050","011-22445562","hanafihafi@hrmdemolive.com");
+        pimPage.clickPIMLink();
+        boolean verifyUpdatedEmpExist = pimPage.verifyUpdatedEmployeeDetailsExist();
+        assertTrue(verifyUpdatedEmpExist);
+    }
+    @Test
+    public void successUpdateEmployeeJobDetails(){
+        pimPage.clickPIMLink();
+        pimPage.successUpdateEmployeeJobDetails("Hanafi Hussein");
+        pimPage.clickPIMLink();
+        boolean verifyUpdatedEmpExist = pimPage.verifyUpdatedEmployeeDetailsExist();
+        assertTrue(verifyUpdatedEmpExist);
+    }
 
 }
 
