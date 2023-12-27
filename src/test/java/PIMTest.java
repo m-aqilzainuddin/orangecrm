@@ -86,6 +86,85 @@ public class PIMTest extends BaseTest{
         boolean verifyUpdatedEmpExist = pimPage.verifyUpdatedEmployeeDetailsExist();
         assertTrue(verifyUpdatedEmpExist);
     }
+    @Test
+    public void cancelDeleteEmployee(){
+        pimPage.clickPIMLink();
+        pimPage.cancelDeleteEmployee("Hanafi Hussein");
+        pimPage.clickPIMLink();
+        boolean verifyUpdatedEmpExist = pimPage.verifyUpdatedEmployeeDetailsExist();
+        assertTrue(verifyUpdatedEmpExist);
+    }
+    @Test
+    public void successDeleteEmployee(){
+        pimPage.clickPIMLink();
+        pimPage.successDeleteEmployee("Hanafi Hussein");
+        pimPage.clickPIMLink();
+        boolean verifyUpdatedEmpExist = pimPage.verifyUpdatedEmployeeDetailsExist();
+        assertFalse(verifyUpdatedEmpExist);
+    }
+    @Test
+    public void cancelAddReport(){
+        pimPage.clickReportLink();
+        pimPage.cancelAddReport("EmployeeDetails");
+        pimPage.clickReportLink();
+        boolean verifyReportExist = pimPage.verifyReportExist();
+        assertFalse(verifyReportExist);
+    }
+    @Test
+    public void failAddReport(){
+        pimPage.clickReportLink();
+        pimPage.failAddReport();
+        pimPage.clickReportLink();
+        boolean verifyReportExist = pimPage.verifyReportExist();
+        assertFalse(verifyReportExist);
+    }
+    @Test
+    public void successAddReport(){
+        pimPage.clickReportLink();
+        pimPage.successAddReport("EmployeeDetails");
+        pimPage.clickReportLink();
+        boolean verifyReportExist = pimPage.verifyReportExist();
+        assertTrue(verifyReportExist);
+    }
+    @Test
+    public void cancelUpdateReport(){
+        pimPage.clickReportLink();
+        boolean verifyReportExist = pimPage.verifyReportExist();
+        assertTrue(verifyReportExist);
+        pimPage.cancelUpdateReport("Current Employee Details");
+        pimPage.clickReportLink();
+        boolean verifyUpdatedReportExist = pimPage.verifyUpdatedReportExist();
+        assertFalse(verifyUpdatedReportExist);
+
+    }
+    @Test
+    public void successUpdateReport(){
+        pimPage.clickReportLink();
+        boolean verifyReportExist = pimPage.verifyReportExist();
+        assertTrue(verifyReportExist);
+        pimPage.successUpdateReport("Current Employee Details");
+        pimPage.clickReportLink();
+        boolean verifyUpdatedReportExist = pimPage.verifyUpdatedReportExist();
+        assertTrue(verifyUpdatedReportExist);
+    }
+    @Test
+    public void cancelDeleteReport(){
+        pimPage.clickReportLink();
+        boolean verifyUpdatedReportDisplay = pimPage.verifyUpdatedReportExist();
+        assertTrue(verifyUpdatedReportDisplay);
+        pimPage.cancelDeleteReport();
+        boolean verifyUpdatedReportExist = pimPage.verifyUpdatedReportExist();
+        assertTrue(verifyUpdatedReportExist);
+    }
+    @Test
+    public void successDeleteReport(){
+        pimPage.clickReportLink();
+        boolean verifyUpdatedReportDisplay = pimPage.verifyUpdatedReportExist();
+        assertTrue(verifyUpdatedReportDisplay);
+        pimPage.successDeleteReport();
+        boolean verifyUpdatedReportExist = pimPage.verifyUpdatedReportExist();
+        assertFalse(verifyUpdatedReportExist);
+    }
 
 }
 
