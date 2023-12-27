@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -84,11 +85,11 @@ public class PIMPage {
 
     //EMPLOYEE
     //Add-Employee
-    @FindBy(xpath = "//input[@name='firstName']")
+    @FindBy(xpath = "//input[contains(@class,'orangehrm-firstname')]")
     WebElement empFirstName;
-    @FindBy(xpath = "//input[@name='middleName']")
+    @FindBy(xpath = "//input[contains(@class,'orangehrm-middlename')]")
     WebElement empMidName;
-    @FindBy(xpath = "//input[@name='lastName']")
+    @FindBy(xpath = " //input[contains(@class,'orangehrm-lastname')]")
     WebElement empLastName;
     @FindBy(xpath = "//label[text()='Employee Id']/../following-sibling::div/input")
     WebElement empID;
@@ -105,6 +106,22 @@ public class PIMPage {
     @FindBy(xpath = "//label[text()='Confirm Password']/../following-sibling::div/input")
     WebElement empConfirmPass;
 
+    //Search Employee Information
+    @FindBy(xpath = "//label[text()='Employee Name']/../following-sibling::div//input")
+    WebElement empSearchByName;
+    @FindBy(xpath = "//label[text()='Employee Id']/../following-sibling::div//input")
+    WebElement empSearchByID;
+    @FindBy(xpath = "//label[text()='Employment Status']/../following-sibling::div")
+    WebElement empSearchEmpStatus;
+    @FindBy(xpath = "//label[text()='Employment Status']/../following-sibling::div//span[contains(text(),'Full-Time Permanent')]")
+    WebElement empSearchSelectEmpStatus;
+    @FindBy(xpath = "//div[text()[normalize-space()='Hanafi']]")
+    List<WebElement> empDisplayFName;
+    @FindBy(xpath = "//div[text()[normalize-space()='Hafi']]")
+    List<WebElement> empDisplayLName;
+    @FindBy(xpath = "//div[text()[normalize-space()='Hussein']]")
+    List<WebElement> empUpdatedDisplayLName;
+
     //Personal-Details Employee (For-Update)
     @FindBy(xpath = "//a[text()='Personal Details']")
     WebElement empPersonalDetailsLink;
@@ -114,8 +131,6 @@ public class PIMPage {
     WebElement empSelectNationality;
     @FindBy(xpath = "//label[text()='Male']")
     WebElement empGenderMale;
-    @FindBy(xpath = "//label[text()='Female']")
-    WebElement empGenderFemale;
 
     //Contact-Details Employee (For-Update)
     @FindBy(xpath = "//a[text()='Contact Details']")
@@ -138,6 +153,8 @@ public class PIMPage {
     WebElement empWorkEmail;
 
     //Job Employee (For-Update)
+    @FindBy(xpath = "//div[text()[normalize-space()='Hanafi']]/../following-sibling::div//i[contains(@class,'bi-pencil-fill')]")
+    WebElement empEditDetails;
     @FindBy(xpath = "//a[text()='Job']")
     WebElement empJobLink;
     @FindBy(xpath = "//label[text()='Job Title']/../following-sibling::div")
@@ -161,19 +178,9 @@ public class PIMPage {
     @FindBy(xpath = "//label[text()='Employment Status']/../following-sibling::div//span[contains(text(),'Full-Time Permanent')]")
     WebElement empSelectEmploymentStatus;
 
-    //Search Employee Information
-    @FindBy(xpath = "//label[text()='Employee Name']/../following-sibling::div//input")
-    WebElement empSearchByName;
-    @FindBy(xpath = "//label[text()='Employee Id']/../following-sibling::div//input")
-    WebElement empSearchByID;
-    @FindBy(xpath = "//label[text()='Employment Status']/../following-sibling::div")
-    WebElement empSearchEmpStatus;
-    @FindBy(xpath = "//label[text()='Employment Status']/../following-sibling::div//span[contains(text(),'Full-Time Permanent')]")
-    WebElement empSearchSelectEmpStatus;
-    @FindBy(xpath = "//div[text()[normalize-space()='Hanafi']]")
-    List<WebElement> empDisplayFName;
-    @FindBy(xpath = "//div[text()[normalize-space()='Hafi']]")
-    List<WebElement> empDisplayLName;
+    //Employee Delete
+    @FindBy(xpath = "//div[text()[normalize-space()='Hanafi']]/../following-sibling::div//i[contains(@class,'bi-trash')]")
+    WebElement empDelete;
 
 
     //EMPLOYEE METHOD
@@ -184,94 +191,142 @@ public class PIMPage {
         }
     }
     public void failAddEmployeeWithoutLoginDetails(){
-        globalAddBtn.isDisplayed();
         globalAddBtn.click();
-        globalSaveButton.isDisplayed();
         globalSaveButton.click();
         globalInputRequired.isDisplayed();
     }
     public void failAddEmployeeWithLoginDetails(String fname,String lname,String username){
-        globalAddBtn.isDisplayed();
         globalAddBtn.click();
         empFirstName.sendKeys(fname);
         empLastName.sendKeys(lname);
-        empCreateLoginToggle.isDisplayed();
         empCreateLoginToggle.click();
         empUsername.sendKeys(username);
-        globalSaveButton.isDisplayed();
         globalSaveButton.click();
         globalInputRequired.isDisplayed();
     }
     public void cancelAddEmployeeWithoutLoginDetails(String fname,String lname, String fullname){
-        globalAddBtn.isDisplayed();
         globalAddBtn.click();
         empFirstName.sendKeys(fname);
         empLastName.sendKeys(lname);
-        globalCancelButton.isDisplayed();
         globalCancelButton.click();
         empSearchByName.click();
         empSearchByName.sendKeys(fullname);
-        globalSearchBtn.isDisplayed();
         globalSearchBtn.click();
     }
     public void cancelAddEmployeeWithLoginDetails(String fname,String lname,String username,String pass,String cpass,String fullname){
-        globalAddBtn.isDisplayed();
         globalAddBtn.click();
         empFirstName.sendKeys(fname);
         empLastName.sendKeys(lname);
-        empCreateLoginToggle.isDisplayed();
         empCreateLoginToggle.click();
         empUsername.sendKeys(username);
         empPass.click();
         empPass.sendKeys(pass);
         empConfirmPass.click();
         empConfirmPass.sendKeys(cpass);
-        globalCancelButton.isDisplayed();
         globalCancelButton.click();
         empSearchByName.click();
         empSearchByName.sendKeys(fullname);
-        globalSearchBtn.isDisplayed();
         globalSearchBtn.click();
     }
     public void successAddEmployeeWithoutLoginDetails(String fname,String lname, String fullname){
-        globalAddBtn.isDisplayed();
         globalAddBtn.click();
         empFirstName.sendKeys(fname);
         empLastName.sendKeys(lname);
-        globalSaveButton.isDisplayed();
         globalSaveButton.click();
         globalSuccessfullySaveMsg.isDisplayed();
         pimLink.isDisplayed();
         pimLink.click();
         empSearchByName.click();
         empSearchByName.sendKeys(fullname);
-        globalSearchBtn.isDisplayed();
         globalSearchBtn.click();
     }
     public void successAddEmployeeWithLoginDetails(String fname,String lname,String username,String pass,String cpass,String fullname){
-        globalAddBtn.isDisplayed();
         globalAddBtn.click();
         empFirstName.sendKeys(fname);
         empLastName.sendKeys(lname);
-        empCreateLoginToggle.isDisplayed();
         empCreateLoginToggle.click();
         empUsername.sendKeys(username);
         empPass.click();
         empPass.sendKeys(pass);
         empConfirmPass.click();
         empConfirmPass.sendKeys(cpass);
-        globalSaveButton.isDisplayed();
         globalSaveButton.click();
         globalSuccessfullySaveMsg.isDisplayed();
-        pimLink.isDisplayed();
         pimLink.click();
         empSearchByName.click();
         empSearchByName.sendKeys(fullname);
-        globalSearchBtn.isDisplayed();
         globalSearchBtn.click();
     }
+    public void cancelUpdateEmployeeDetails(String fullname, String updatelname){
+        empSearchByName.click();
+        empSearchByName.sendKeys(fullname);
+        globalSearchBtn.click();
+        empEditDetails.click();
+        empLastName.click();
+        empLastName.sendKeys(Keys.CONTROL,"A");
+        empLastName.sendKeys(Keys.DELETE);
+        empLastName.sendKeys(updatelname);
+        empNationality.click();
+        empSelectNationality.click();
+        empGenderMale.click();
+    }
+    public void successUpdateEmployeeDetails(String fullname, String updatelname, String empstreet, String empcity, String empstate, String empposcode, String empmobile, String empemail){
+        empSearchByName.click();
+        empSearchByName.sendKeys(fullname);
+        globalSearchBtn.click();
+        empEditDetails.click();
+        empLastName.click();
+        empLastName.sendKeys(Keys.CONTROL,"A");
+        empLastName.sendKeys(Keys.DELETE);
+        empLastName.sendKeys(updatelname);
+        empNationality.click();
+        empSelectNationality.click();
+        empGenderMale.click();
+        globalSaveButton.click();
+        globalSuccessfullyUpdateMsg.isDisplayed();
+        empContactDetailsLink.click();
+        empStreet.click();
+        empStreet.sendKeys(empstreet);
+        empCity.click();
+        empCity.sendKeys(empcity);
+        empState.click();
+        empState.sendKeys(empstate);
+        empPostalCode.click();
+        empPostalCode.sendKeys(empposcode);
+        empCountry.click();
+        empSelectCountry.click();
+        empMobileNum.click();
+        empMobileNum.sendKeys(empmobile);
+        empWorkEmail.click();
+        empWorkEmail.sendKeys(empemail);
+        globalSaveButton.click();
+        globalSuccessfullyUpdateMsg.isDisplayed();
+    }
+    public void successUpdateEmployeeJobDetails(String fullname){
+        empSearchByName.click();
+        empSearchByName.sendKeys(fullname);
+        globalSearchBtn.click();
+        empEditDetails.click();
+        empJobLink.click();
+        empJobTitle.click();
+        empSelectJobTitle.click();
+        empJobCategory.click();
+        empSelectJobCategory.click();
+        empSubUnit.click();
+        empSelectSubUnit.click();
+        empLocation.click();
+        empSelectLocation.click();
+        empEmploymentStatus.click();
+        empSelectEmploymentStatus.click();
+        globalSaveButton.click();
+        globalSuccessfullyUpdateMsg.isDisplayed();
+    }
     public boolean verifyEmployeeExist() {
-        int count = empDisplayFName.size()&empDisplayLName.size();
+        int count = empDisplayFName.size()&empDisplayLName.size(); //if both condition met then it true. count = 1.
+        return count > 0;
+    }
+    public boolean verifyUpdatedEmployeeDetailsExist() {
+        int count = empDisplayFName.size()&empUpdatedDisplayLName.size(); //if both condition met then it true. count = 1.
         return count > 0;
     }
 
